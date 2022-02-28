@@ -1,0 +1,401 @@
+<hmtl>
+    <head>
+        <style>
+            body
+            {
+                background-color: rgb(44, 44, 44);
+                margin: 0px;
+            }
+            p
+            {
+                color: white;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .restart
+            {
+                color: white; background-color: transparent;
+                font-size: 30px; font-family: 'Times New Roman', Times, serif;
+                margin-top: 250px;
+            }
+            .casa
+            {
+                width: 100px; height: 100px;
+                background-color: white;
+            }
+            .x
+            {
+                background-image: url(imagens/x.jpg);
+                background-size: cover;
+            }
+            .o
+            {
+                background-image: url(imagens/o.jpg);
+                background-size: cover;
+            }
+            .tabela
+            {
+                color: white;
+                font-size: 20px; font-family: 'Times New Roman', Times, serif;
+                border-collapse: collapse;
+            }
+            td, th
+            {
+                border: solid white 2px;
+                padding: 10px;
+                text-align: center;
+            }
+            .child
+            {
+                flex: 1;
+            }
+            .tudo
+            {
+                display: flex;
+                width: 1200px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            .tudomesmo
+            {
+                position: relative;
+                width: 100%; height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tudomesmo">
+            <center>
+                <div class="tudo">
+                    <div class="child">
+                        <p style="font-size: 40px">Placar</p>
+                        <table class="tabela">
+                            <tr>
+                                <th>X</th>
+                                <th>O</th>
+                                <th>EMPATE</th>
+                            </tr>
+                            <tr>
+                                <td id="x">-</td>
+                                <td id="o">-</td>
+                                <td id="draw">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="child">
+                        <center>
+                            <div>
+                                <p style="font-size: 40px">Jogo da Velha</p>
+                                <button id="a3" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="b3" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="c3" class="casa" onclick="jogo(this.id)"></button>
+                        </div>
+                        <div>
+                                <button id="a2" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="b2" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="c2" class="casa" onclick="jogo(this.id)"></button>
+                        </div>
+                        <div>
+                                <button id="a1" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="b1" class="casa" onclick="jogo(this.id)"></button>
+                                <button id="c1" class="casa" onclick="jogo(this.id)"></button>
+                        </div>
+                        <div>
+                            <p id="vencedor" style="font-size: 30px;"></p>
+                        </div>
+                        </center>
+                    </div>
+                    <div class="child">
+                            <button class="restart" id="restart" style="display: none;" onclick="restart()">Jogar de novo</button>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <script>
+            var controle = 2;
+            var controle1 = 0;
+            var controle2 = 0;
+
+            var x = 0;
+            var o = 0;
+            var draw = 0;
+
+            function restart()
+            {
+                document.getElementById("a3").className="casa"
+                document.getElementById("b3").className="casa"
+                document.getElementById("c3").className="casa"
+                document.getElementById("a2").className="casa"
+                document.getElementById("b2").className="casa"
+                document.getElementById("c2").className="casa"
+                document.getElementById("a1").className="casa"
+                document.getElementById("b1").className="casa"
+                document.getElementById("c1").className="casa"
+
+                document.getElementById("restart").style.display="none"
+                document.getElementById("vencedor").innerHTML=""
+                controle = 2;
+                controle1 = 0;
+            }
+
+            function jogo(clicked_id)
+            {
+                var id = document.getElementById(clicked_id);
+
+                if(id.className == "casa x" || id.className == "casa o")
+                {
+
+                }
+                else
+                {
+                    if(controle % 2 == 0 && controle1 == 0)
+                    {
+                        id.className="casa x"
+                        if(controle2 == 0)
+                        {
+                            window.alert("Lembrando que o X sempre começa ;)")
+                        }
+                    }
+                    else if(controle % 2 != 0 && controle1 == 0)
+                    {
+                        id.className="casa o"
+                        if(controle2 == 0)
+                        {
+                            window.alert("Lembrando que o X sempre começa ;)")
+                        }
+                    }
+                    controle ++;
+                    controle2 ++;
+                }
+
+                //VERIFICAÇÃO DE VITÓRIA
+                if(controle1 == 0)
+                {
+                    if(document.getElementById("a3").className == "casa x")//a3=x
+                    {
+                        if(document.getElementById("b3").className == "casa x")//b3=x
+                        {
+                            if(document.getElementById("c3").className == "casa x")//c3=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("a2").className == "casa x")//a2=x
+                        {
+                            if(document.getElementById("a1").className == "casa x")//a1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("b2").className == "casa x")//b2=x
+                        {
+                            if(document.getElementById("c1").className == "casa x")//c1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    else if(document.getElementById("a3").className == "casa o")//a3=o
+                    {
+                        if(document.getElementById("b3").className == "casa o")//b3=0
+                        {
+                            if(document.getElementById("c3").className == "casa o")//c3=0
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("a2").className == "casa o")//a2=o
+                        {
+                            if(document.getElementById("a1").className == "casa o")//a1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("b2").className == "casa o")//b2=o
+                        {
+                            if(document.getElementById("c1").className == "casa o")//c1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+
+                    if(document.getElementById("b3").className == "casa x")//b3=x
+                    {
+                        if(document.getElementById("b2").className == "casa x")//b2=x
+                        {
+                            if(document.getElementById("b1").className == "casa x")//b1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    else if(document.getElementById("b3").className == "casa o")//b3=o
+                    {
+                        if(document.getElementById("b2").className == "casa o")//b2=o
+                        {
+                            if(document.getElementById("b1").className == "casa o")//b1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+
+                    if(document.getElementById("c3").className == "casa x")//c3=x
+                    {
+                        if(document.getElementById("c2").className == "casa x")//c2=x
+                        {
+                            if(document.getElementById("c1").className == "casa x")//c1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("b2").className == "casa x")//b2=x
+                        {
+                            if(document.getElementById("a1").className == "casa x")//a1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    else if(document.getElementById("c3").className == "casa o")//c3=o
+                    {
+                        if(document.getElementById("c2").className == "casa o")//c2=o
+                        {
+                            if(document.getElementById("c1").className == "casa o")//c1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                        if(document.getElementById("b2").className == "casa o")//b2=o
+                        {
+                            if(document.getElementById("a1").className == "casa o")//a1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+
+                    if(document.getElementById("a2").className == "casa x")//a2=x
+                    {
+                        if(document.getElementById("b2").className == "casa x")//b2=x
+                        {
+                            if(document.getElementById("c2").className == "casa x")//c2=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    else if(document.getElementById("a2").className == "casa o")//a2=o
+                    {
+                        if(document.getElementById("b2").className == "casa o")//b2=o
+                        {
+                            if(document.getElementById("c2").className == "casa o")//c2=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    
+                    if(document.getElementById("a1").className == "casa x")//a1=x
+                    {
+                        if(document.getElementById("b1").className == "casa x")//b1=x
+                        {
+                            if(document.getElementById("c1").className == "casa x")//c1=x
+                            {
+                                document.getElementById("vencedor").innerHTML="X venceu!"
+                                x ++;
+                                controle1 ++;
+                                document.getElementById("x").innerHTML=x;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    else if(document.getElementById("a1").className == "casa o")//a1=o
+                    {
+                        if(document.getElementById("b1").className == "casa o")//b1=o
+                        {
+                            if(document.getElementById("c1").className == "casa o")//c1=o
+                            {
+                                document.getElementById("vencedor").innerHTML="O venceu!"
+                                o ++;
+                                controle1 ++;
+                                document.getElementById("o").innerHTML=o;
+                                document.getElementById("restart").style.display="block"
+                            }
+                        }
+                    }
+                    
+                    //VERIFICAÇÃO DE EMPATE
+                    if((document.getElementById("a3").className == "casa x" || document.getElementById("a3").className == "casa o") && (document.getElementById("b3").className == "casa x" || document.getElementById("b3").className == "casa o") && (document.getElementById("c3").className == "casa x" || document.getElementById("c3").className == "casa o") && (document.getElementById("a2").className == "casa x" || document.getElementById("a2").className == "casa o") && (document.getElementById("b2").className == "casa x" || document.getElementById("b2").className == "casa o") && (document.getElementById("c2").className == "casa x" || document.getElementById("c2").className == "casa o") && (document.getElementById("a1").className == "casa x" || document.getElementById("a1").className == "casa o") && (document.getElementById("b1").className == "casa x" || document.getElementById("b1").className == "casa o") && (document.getElementById("c1").className == "casa x" || document.getElementById("c1").className == "casa o"))
+                    {
+                        document.getElementById("vencedor").innerHTML="Deu velha!"
+                        draw ++;
+                        controle1 ++;
+                        document.getElementById("draw").innerHTML=draw;
+                        document.getElementById("restart").style.display="block"
+                    }
+                }
+            }
+        </script>
+    </body>
+</hmtl>
